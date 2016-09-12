@@ -78,7 +78,13 @@ module TSOS {
                                   "prompt",
                                   "<string> - Sets the prompt.");
             this.commandList[this.commandList.length] = sc;
-
+			
+			
+			// rdc 
+			sc = new ShellCommand(this.shellRdc,
+								  "rdc",
+								  "Removes Daniel Craig from the James Bond series.");
+			this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
