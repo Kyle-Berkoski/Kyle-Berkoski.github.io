@@ -320,6 +320,12 @@ module TSOS {
 		public shellRdc() {
 			// TODO: add a timer before allowing more input????????
 			_StdOut.putText("Removing Daniel Craig from the James Bond Series...")
+			_StdOut.advanceLine();
+			_StdOut.putText("...");
+			_StdOut.advanceLine();
+			_StdOut.putText("...");
+			_StdOut.advanceLine();
+			_StdOut.putText("Complete.");
 		}
 
     }
