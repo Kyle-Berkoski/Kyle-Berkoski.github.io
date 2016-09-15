@@ -85,6 +85,7 @@ module TSOS {
 								  "rdc",
 								  "Removes Daniel Craig from the James Bond series.");
 			this.commandList[this.commandList.length] = sc;
+			
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -243,7 +244,30 @@ module TSOS {
                     case "help":
                         _StdOut.putText("Help displays a list of (hopefully) valid commands.");
                         break;
-                    // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
+                    case "shutdown":
+						_StdOut.putText("Launching nuclear missiles...");
+						break;
+					case "ver":
+						_StdOut.putText("Really? Take a wild guess.");
+						break;
+					case "cls":
+						_StdOut.putText("Give it a try. I promise it won't do anything too bad.");
+						break;
+					case "man":
+						_StdOut.putText("Did... Did you really just... wow.");
+						break;
+					case "trace":
+						_StdOut.putText("Turns on/off the OS tracing.");
+						break;
+					case "rot13":
+						_StdOut.putText("Does rot13 obfuscation on <string>. Whatever that means.");
+						break;
+					case "prompt":
+						_StdOut.putText("Sets the prompt.");
+						break;
+					case "rdc":
+						_StdOut.putText("Does what have should have been done a long time ago...");
+						break;
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
                 }
@@ -292,6 +316,11 @@ module TSOS {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
         }
+		
+		public shellRdc() {
+			// TODO: add a timer before allowing more input????????
+			_StdOut.putText("Removing Daniel Craig from the James Bond Series...")
+		}
 
     }
 }
