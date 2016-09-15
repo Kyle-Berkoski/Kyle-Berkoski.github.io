@@ -98,6 +98,11 @@ module TSOS {
 								  "Gets location of Ami.");
 			this.commandList[this.commandList.length] = sc;
 			
+			// klingon
+			sc = new ShellCommand(this.shellKlingon,
+								  "klingon",
+								  "You're a nerd.");
+			this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -351,6 +356,12 @@ module TSOS {
 			var locations = ["Europe.", "Japan.", "the Moon.", "Russia.", "herself.", "the local hiking trails."];
 			var randNum = Math.floor(Math.random() * 5) + 0;
 			_StdOut.putText("Ami is having a wonderful time exploring " + locations[randNum]);
+		}
+		
+		public shellKlingon() {
+			_StdOut.putText("tlhIngan Hol Dajatlh'a'??");
+			_StdOut.advanceLine();
+			_StdOut.putText("rut vIchel 'e' vIHar.");
 		}
 
     }
