@@ -86,6 +86,12 @@ module TSOS {
 								  "Removes Daniel Craig from the James Bond series.");
 			this.commandList[this.commandList.length] = sc;
 			
+			// date
+			sc = new ShellCommand(this.shellDate,
+								  "date",
+								  "Displays the current date.");
+			this.commandList[this.commandList.length] = sc;
+			
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -179,7 +185,7 @@ module TSOS {
             }
             return retVal;
         }
-
+		
         //
         // Shell Command Functions.  Kinda not part of Shell() class exactly, but
         // called from here, so kept here to avoid violating the law of least astonishment.
@@ -318,7 +324,6 @@ module TSOS {
         }
 		
 		public shellRdc() {
-			// TODO: add a timer before allowing more input????????
 			_StdOut.putText("Removing Daniel Craig from the James Bond Series...")
 			_StdOut.advanceLine();
 			_StdOut.putText("...");
@@ -326,6 +331,25 @@ module TSOS {
 			_StdOut.putText("...");
 			_StdOut.advanceLine();
 			_StdOut.putText("Complete.");
+		}
+		
+		public shellDate() {
+			debugger;
+			// TODO: God damn this is ugly
+			var daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+			var monthsOfTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+			var dateTime = new Date();
+			// Apparently typescript doesn't let you convert number to string, so we have to declare it as "any" type. I'm fuming.
+			var date: any = dateTime.getDate();
+			date.toString();
+			var day: any = dateTime.getDay();
+			var month = dateTime.getMonth();
+			var year: any = dateTime.getFullYear();
+			year = year.toString();
+			
+			var dateString = daysOfTheWeek[day] + ", " + monthsOfTheYear[month] + " " + date + " " + year;
+				
+			_StdOut.putText(dateString);
 		}
 
     }
