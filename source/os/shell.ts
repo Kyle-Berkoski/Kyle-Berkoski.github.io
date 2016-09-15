@@ -92,6 +92,12 @@ module TSOS {
 								  "Displays the current date.");
 			this.commandList[this.commandList.length] = sc;
 			
+			// whereami
+			sc = new ShellCommand(this.shellLocation,
+								  "whereami",
+								  "Gets location of Ami.");
+			this.commandList[this.commandList.length] = sc;
+			
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -338,6 +344,13 @@ module TSOS {
 				dateTime = dateTime.toString();
 				
 			_StdOut.putText(dateTime);
+		}
+		
+		public shellLocation() {	
+			// TODO: do I really want that one in there?
+			var locations = ["Europe.", "Japan.", "the Moon.", "Russia.", "herself.", "the local hiking trails."];
+			var randNum = Math.floor(Math.random() * 5) + 0;
+			_StdOut.putText("Ami is having a wonderful time exploring " + locations[randNum]);
 		}
 
     }
