@@ -334,22 +334,10 @@ module TSOS {
 		}
 		
 		public shellDate() {
-			debugger;
-			// TODO: God damn this is ugly
-			var daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-			var monthsOfTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-			var dateTime = new Date();
-			// Apparently typescript doesn't let you convert number to string, so we have to declare it as "any" type. I'm fuming.
-			var date: any = dateTime.getDate();
-			date.toString();
-			var day: any = dateTime.getDay();
-			var month = dateTime.getMonth();
-			var year: any = dateTime.getFullYear();
-			year = year.toString();
-			
-			var dateString = daysOfTheWeek[day] + ", " + monthsOfTheYear[month] + " " + date + " " + year;
+			var dateTime: any = new Date();
+				dateTime = dateTime.toString();
 				
-			_StdOut.putText(dateString);
+			_StdOut.putText(dateTime);
 		}
 
     }
