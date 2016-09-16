@@ -359,7 +359,7 @@ module TSOS {
 		}
 		
 		public shellKlingon() {
-			_StdOut.putText("tlhIngan Hol Dajatlh'a'??");
+			_StdOut.putText("tlhIngan Hol Dajatlh'a'?");
 			_StdOut.advanceLine();
 			_StdOut.putText("rut vIchel 'e' vIHar.");
 		}
