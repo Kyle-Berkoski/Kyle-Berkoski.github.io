@@ -103,6 +103,13 @@ module TSOS {
 								  "klingon",
 								  "You're a nerd.");
 			this.commandList[this.commandList.length] = sc;
+			
+			// status <string> 
+			sc = new ShellCommand(this.shellStatus,
+								  "status",
+								  "Updates the status bar to <string>");
+			this.commandList[this.commandList.length] = sc;
+			
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -362,6 +369,29 @@ module TSOS {
 			_StdOut.putText("tlhIngan Hol Dajatlh'a'?");
 			_StdOut.advanceLine();
 			_StdOut.putText("rut vIchel 'e' vIHar.");
+		}
+		
+		public shellStatus(args){
+			var statusString = "";
+			// Args with spaces are stored in array, so loop through and make it a string
+			_SarcasticMode = true;
+			if(args.length > 1){
+				for (var i = 0; i < args.length; i++){
+					statusString = statusString + args[i] + " ";
+				}
+				document.getElementById("statusBar").innerHTML = statusString;
+			} else if (args.length === 1){
+				document.getElementById("statusBar").innerHTML = args;
+			} else {
+				if(_SarcasticMode){
+					_StdOut.putText("You're supposed to put a string in, idiot.")
+				} else {
+					_StdOut.putText("Usage status <string> Please supply a string.")
+				}
+				
+			}
+			
+			
 		}
 
     }

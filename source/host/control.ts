@@ -55,7 +55,11 @@ module TSOS {
                 _GLaDOS = new Glados();
                 _GLaDOS.init();
             }
-        }
+			// Set the current date. Div Id = dateBar
+			this.setDateBar();
+			// Set the current time. Div Id = timeBar
+			this.setTimeBar();
+		}
 
         public static hostLog(msg: string, source: string = "?"): void {
             // Note the OS CLOCK.
@@ -117,5 +121,46 @@ module TSOS {
             // be reloaded from the server. If it is false or not specified the browser may reload the
             // page from its cache, which is not what we want.
         }
+		
+		public static setDateBar() {
+			// getMonth returns a number and I want the month shorthand
+			var monthsOfTheYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
+			var dateInfo = new Date();
+			// Typescript doesn't let you convert A NUMBER TO A STRING CMON so we have to declare it as "any" type to do toString
+			var date: any = dateInfo.getDate();
+				date = date.toString();
+			var month = dateInfo.getMonth();
+			var year: any = dateInfo.getFullYear();
+				year = year.toString();
+			var fullDate = "Date: " + monthsOfTheYear[month] + " " + date + ", " + year;
+			
+			document.getElementById("dateBar").innerHTML = fullDate;
+		}
+		
+		public static setTimeBar() {
+			var timeInfo = new Date();
+			var hour: any = timeInfo.getHours();
+				hour = hour.toString();
+			var minute: any = timeInfo.getMinutes();
+			// It looks dumb if minute is a single digit
+			if (minute < 10){
+				minute = "0" + minute.toString();
+			} else{
+				minute = minute.toString();
+			}
+				// It looks dumb if second is a single digit
+			var second: any = timeInfo.getSeconds();
+			if (second < 10){
+				second = "0" + second.toString();
+			} else{
+				second = second.toString();
+			}
+			// Set the time bar
+			var fullTime = hour + ":" + minute + ":" + second;
+			document.getElementById("timeBar").innerHTML = "Time: " + fullTime;
+			// This is the recursive function that keeps the time going
+			var timeout = setTimeout(Control.setTimeBar, 1000);
+			
+		}
     }
 }
