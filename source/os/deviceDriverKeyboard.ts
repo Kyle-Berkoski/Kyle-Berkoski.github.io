@@ -61,11 +61,28 @@ module SDOS {
 					_TextHistory.push(chr);
 				}
                 _KernelInputQueue.enqueue(chr);
-            } else if (keyCode == 8) { //backspace
+            } else if (keyCode == 8) { // Backspace
 				debugger;
 				chr = String.fromCharCode(8);
 				_KernelInputQueue.enqueue(chr);
 			} else if (keyCode == 9) { //Tab
+				
+			} else if (keyCode == 38) { // Up arrow
+				// Only go up if we can
+				if (_CurrentLocation < _CommandHistory.length){
+					_CurrentLocation = _CurrentLocation + 1;
+					chr = String.fromCharCode(38);
+					_KernelInputQueue.enqueue(chr);
+				}
+				
+			} else if (keyCode == 40) { // Down Arrow
+				// Only go down if we can
+				if (_CurrentLocation > 0) {
+					_CurrentLocation = _CurrentLocation - 1;
+					chr = String.fromCharCode(38);
+					_KernelInputQueue.enqueue(chr);
+				}
+				
 				
 			}
         }
