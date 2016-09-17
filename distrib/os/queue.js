@@ -7,8 +7,8 @@
    Look at the push and shift methods, as they are the least obvious here.
 
    ------------ */
-var TSOS;
-(function (TSOS) {
+var SDOS;
+(function (SDOS) {
     var Queue = (function () {
         function Queue(q) {
             if (q === void 0) { q = new Array(); }
@@ -38,6 +38,6 @@ var TSOS;
             return retVal;
         };
         return Queue;
-    })();
-    TSOS.Queue = Queue;
-})(TSOS || (TSOS = {}));
+    }());
+    SDOS.Queue = Queue;
+})(SDOS || (SDOS = {}));

@@ -3,8 +3,7 @@
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /* ----------------------------------
    DeviceDriverKeyboard.ts
@@ -13,14 +12,19 @@ var __extends = (this && this.__extends) || function (d, b) {
 
    The Kernel Keyboard Device Driver.
    ---------------------------------- */
-var TSOS;
-(function (TSOS) {
+var SDOS;
+(function (SDOS) {
     // Extends DeviceDriver
     var DeviceDriverKeyboard = (function (_super) {
         __extends(DeviceDriverKeyboard, _super);
         function DeviceDriverKeyboard() {
             // Override the base method pointers.
-            _super.call(this, this.krnKbdDriverEntry, this.krnKbdDispatchKeyPress);
+            // The code below cannot run because "this" can only be
+            // accessed after calling super.
+            //super(this.krnKbdDriverEntry, this.krnKbdDispatchKeyPress);
+            _super.call(this);
+            this.driverEntry = this.krnKbdDriverEntry;
+            this.isr = this.krnKbdDispatchKeyPress;
         }
         DeviceDriverKeyboard.prototype.krnKbdDriverEntry = function () {
             // Initialization routine for this, the kernel-mode Keyboard Device Driver.
@@ -43,17 +47,29 @@ var TSOS;
                 if (isShifted) {
                     chr = String.fromCharCode(keyCode);
                 }
+                _TextHistory.push(chr);
                 // TODO: Check for caps-lock and handle as shifted if so.
                 _KernelInputQueue.enqueue(chr);
             }
             else if (((keyCode >= 48) && (keyCode <= 57)) ||
                 (keyCode == 32) ||
                 (keyCode == 13)) {
+                debugger;
                 chr = String.fromCharCode(keyCode);
+                // Only store the value if it's a digit
+                if ((keyCode >= 48) && (keyCode <= 57)) {
+                    _TextHistory.push(chr);
+                }
                 _KernelInputQueue.enqueue(chr);
+            }
+            else if (keyCode == 8) {
+                chr = "backspace";
+                _KernelInputQueue.enqueue(chr);
+            }
+            else if (keyCode == 9) {
             }
         };
         return DeviceDriverKeyboard;
-    })(TSOS.DeviceDriver);
-    TSOS.DeviceDriverKeyboard = DeviceDriverKeyboard;
-})(TSOS || (TSOS = {}));
+    }(SDOS.DeviceDriver));
+    SDOS.DeviceDriverKeyboard = DeviceDriverKeyboard;
+})(SDOS || (SDOS = {}));

@@ -13,8 +13,8 @@
      This code references page numbers in the text book:
      Operating System Concepts 8th edition by Silberschatz, Galvin, and Gagne.  ISBN 978-0-470-12872-5
      ------------ */
-var TSOS;
-(function (TSOS) {
+var SDOS;
+(function (SDOS) {
     var Cpu = (function () {
         function Cpu(PC, Acc, Xreg, Yreg, Zflag, isExecuting) {
             if (PC === void 0) { PC = 0; }
@@ -44,6 +44,6 @@ var TSOS;
             // Do the real work here. Be sure to set this.isExecuting appropriately.
         };
         return Cpu;
-    })();
-    TSOS.Cpu = Cpu;
-})(TSOS || (TSOS = {}));
+    }());
+    SDOS.Cpu = Cpu;
+})(SDOS || (SDOS = {}));

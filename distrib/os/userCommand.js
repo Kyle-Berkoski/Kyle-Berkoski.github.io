@@ -1,5 +1,5 @@
-var TSOS;
-(function (TSOS) {
+var SDOS;
+(function (SDOS) {
     var UserCommand = (function () {
         function UserCommand(command, args) {
             if (command === void 0) { command = ""; }
@@ -8,6 +8,6 @@ var TSOS;
             this.args = args;
         }
         return UserCommand;
-    })();
-    TSOS.UserCommand = UserCommand;
-})(TSOS || (TSOS = {}));
+    }());
+    SDOS.UserCommand = UserCommand;
+})(SDOS || (SDOS = {}));

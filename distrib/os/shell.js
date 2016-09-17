@@ -11,8 +11,8 @@
           serious injuries may occur when trying to write your own Operating System.
    ------------ */
 // TODO: Write a base class / prototype for system services and let Shell inherit from it.
-var TSOS;
-(function (TSOS) {
+var SDOS;
+(function (SDOS) {
     var Shell = (function () {
         function Shell() {
             // Properties
@@ -26,28 +26,49 @@ var TSOS;
             //
             // Load the command list.
             // ver
-            sc = new TSOS.ShellCommand(this.shellVer, "ver", "- Displays the current version data.");
+            sc = new SDOS.ShellCommand(this.shellVer, "ver", "- Displays the current version data.");
             this.commandList[this.commandList.length] = sc;
             // help
-            sc = new TSOS.ShellCommand(this.shellHelp, "help", "- This is the help command. Seek help.");
+            sc = new SDOS.ShellCommand(this.shellHelp, "help", "- This is the help command. Seek help.");
             this.commandList[this.commandList.length] = sc;
             // shutdown
-            sc = new TSOS.ShellCommand(this.shellShutdown, "shutdown", "- Shuts down the virtual OS but leaves the underlying host / hardware simulation running.");
+            sc = new SDOS.ShellCommand(this.shellShutdown, "shutdown", "- Shuts down the virtual OS but leaves the underlying host / hardware simulation running.");
             this.commandList[this.commandList.length] = sc;
             // cls
-            sc = new TSOS.ShellCommand(this.shellCls, "cls", "- Clears the screen and resets the cursor position.");
+            sc = new SDOS.ShellCommand(this.shellCls, "cls", "- Clears the screen and resets the cursor position.");
             this.commandList[this.commandList.length] = sc;
             // man <topic>
-            sc = new TSOS.ShellCommand(this.shellMan, "man", "<topic> - Displays the MANual page for <topic>.");
+            sc = new SDOS.ShellCommand(this.shellMan, "man", "<topic> - Displays the MANual page for <topic>.");
             this.commandList[this.commandList.length] = sc;
             // trace <on | off>
-            sc = new TSOS.ShellCommand(this.shellTrace, "trace", "<on | off> - Turns the OS trace on or off.");
+            sc = new SDOS.ShellCommand(this.shellTrace, "trace", "<on | off> - Turns the OS trace on or off.");
             this.commandList[this.commandList.length] = sc;
             // rot13 <string>
-            sc = new TSOS.ShellCommand(this.shellRot13, "rot13", "<string> - Does rot13 obfuscation on <string>.");
+            sc = new SDOS.ShellCommand(this.shellRot13, "rot13", "<string> - Does rot13 obfuscation on <string>.");
             this.commandList[this.commandList.length] = sc;
             // prompt <string>
-            sc = new TSOS.ShellCommand(this.shellPrompt, "prompt", "<string> - Sets the prompt.");
+            sc = new SDOS.ShellCommand(this.shellPrompt, "prompt", "<string> - Sets the prompt.");
+            this.commandList[this.commandList.length] = sc;
+            // rdc 
+            sc = new SDOS.ShellCommand(this.shellRdc, "rdc", "Removes Daniel Craig from the James Bond series.");
+            this.commandList[this.commandList.length] = sc;
+            // date
+            sc = new SDOS.ShellCommand(this.shellDate, "date", "Displays the current date.");
+            this.commandList[this.commandList.length] = sc;
+            // whereami
+            sc = new SDOS.ShellCommand(this.shellLocation, "whereami", "Gets location of Ami.");
+            this.commandList[this.commandList.length] = sc;
+            // klingon
+            sc = new SDOS.ShellCommand(this.shellKlingon, "klingon", "You're a nerd.");
+            this.commandList[this.commandList.length] = sc;
+            // status <string> 
+            sc = new SDOS.ShellCommand(this.shellStatus, "status", "Updates the status bar to <string>");
+            this.commandList[this.commandList.length] = sc;
+            // shine 
+            sc = new SDOS.ShellCommand(this.shellShine, "shine", "Reflects projectiles");
+            this.commandList[this.commandList.length] = sc;
+            // multiShine 
+            sc = new SDOS.ShellCommand(this.shellMultiShine, "multishine", "UNPLUG YOUR CONTROLLER DAWG");
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
@@ -89,7 +110,7 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
+                if (this.curses.indexOf("[" + SDOS.Utils.rot13(cmd) + "]") >= 0) {
                     this.execute(this.shellCurse);
                 }
                 else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
@@ -114,9 +135,9 @@ var TSOS;
             this.putPrompt();
         };
         Shell.prototype.parseInput = function (buffer) {
-            var retVal = new TSOS.UserCommand();
+            var retVal = new SDOS.UserCommand();
             // 1. Remove leading and trailing spaces.
-            buffer = TSOS.Utils.trim(buffer);
+            buffer = SDOS.Utils.trim(buffer);
             // 2. Lower-case it.
             buffer = buffer.toLowerCase();
             // 3. Separate on spaces so we can determine the command and command-line args, if any.
@@ -124,12 +145,12 @@ var TSOS;
             // 4. Take the first (zeroth) element and use that as the command.
             var cmd = tempList.shift(); // Yes, you can do that to an array in JavaScript.  See the Queue class.
             // 4.1 Remove any left-over spaces.
-            cmd = TSOS.Utils.trim(cmd);
+            cmd = SDOS.Utils.trim(cmd);
             // 4.2 Record it in the return value.
             retVal.command = cmd;
             // 5. Now create the args array from what's left.
             for (var i in tempList) {
-                var arg = TSOS.Utils.trim(tempList[i]);
+                var arg = SDOS.Utils.trim(tempList[i]);
                 if (arg != "") {
                     retVal.args[retVal.args.length] = tempList[i];
                 }
@@ -195,7 +216,30 @@ var TSOS;
                     case "help":
                         _StdOut.putText("Help displays a list of (hopefully) valid commands.");
                         break;
-                    // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
+                    case "shutdown":
+                        _StdOut.putText("Launching nuclear missiles...");
+                        break;
+                    case "ver":
+                        _StdOut.putText("Really? Take a wild guess.");
+                        break;
+                    case "cls":
+                        _StdOut.putText("Give it a try. I promise it won't do anything too bad.");
+                        break;
+                    case "man":
+                        _StdOut.putText("Did... Did you really just... wow.");
+                        break;
+                    case "trace":
+                        _StdOut.putText("Turns on/off the OS tracing.");
+                        break;
+                    case "rot13":
+                        _StdOut.putText("Does rot13 obfuscation on <string>. Whatever that means.");
+                        break;
+                    case "prompt":
+                        _StdOut.putText("Sets the prompt.");
+                        break;
+                    case "rdc":
+                        _StdOut.putText("Does what have should have been done a long time ago...");
+                        break;
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
                 }
@@ -232,7 +276,7 @@ var TSOS;
         Shell.prototype.shellRot13 = function (args) {
             if (args.length > 0) {
                 // Requires Utils.ts for rot13() function.
-                _StdOut.putText(args.join(' ') + " = '" + TSOS.Utils.rot13(args.join(' ')) + "'");
+                _StdOut.putText(args.join(' ') + " = '" + SDOS.Utils.rot13(args.join(' ')) + "'");
             }
             else {
                 _StdOut.putText("Usage: rot13 <string>  Please supply a string.");
@@ -246,7 +290,61 @@ var TSOS;
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
         };
+        Shell.prototype.shellRdc = function () {
+            _StdOut.putText("Removing Daniel Craig from the James Bond Series...");
+            _StdOut.advanceLine();
+            _StdOut.putText("...");
+            _StdOut.advanceLine();
+            _StdOut.putText("...");
+            _StdOut.advanceLine();
+            _StdOut.putText("Complete.");
+        };
+        Shell.prototype.shellDate = function () {
+            var dateTime = new Date();
+            dateTime = dateTime.toString();
+            _StdOut.putText(dateTime);
+        };
+        Shell.prototype.shellLocation = function () {
+            // TODO: do I really want that one in there?
+            var locations = ["Europe.", "Japan.", "the Moon.", "Russia.", "herself.", "the local hiking trails."];
+            var randNum = Math.floor(Math.random() * 5) + 0;
+            _StdOut.putText("Ami is having a wonderful time exploring " + locations[randNum]);
+        };
+        Shell.prototype.shellKlingon = function () {
+            _StdOut.putText("tlhIngan Hol Dajatlh'a'?");
+            _StdOut.advanceLine();
+            _StdOut.putText("rut vIchel 'e' vIHar.");
+        };
+        Shell.prototype.shellStatus = function (args) {
+            var statusString = "";
+            // Args with spaces are stored in array, so loop through and make it a string
+            if (args.length > 1) {
+                for (var i = 0; i < args.length; i++) {
+                    statusString = statusString + args[i] + " ";
+                }
+                document.getElementById("statusBar").innerHTML = statusString;
+            }
+            else if (args.length === 1) {
+                document.getElementById("statusBar").innerHTML = args;
+            }
+            else {
+                if (_SarcasticMode) {
+                    _StdOut.putText("You're supposed to put a string in, idiot.");
+                }
+                else {
+                    _StdOut.putText("Usage status <string> Please supply a string.");
+                }
+            }
+        };
+        Shell.prototype.shellShine = function () {
+            var shineAudio = new Audio('source/shine.mp3');
+            shineAudio.play();
+        };
+        Shell.prototype.shellMultiShine = function () {
+            var multiShineAudio = new Audio('source/multishine.mp3');
+            multiShineAudio.play();
+        };
         return Shell;
-    })();
-    TSOS.Shell = Shell;
-})(TSOS || (TSOS = {}));
+    }());
+    SDOS.Shell = Shell;
+})(SDOS || (SDOS = {}));

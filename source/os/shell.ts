@@ -404,11 +404,13 @@ module SDOS {
 		}
 		
 		public shellShine() {
-			//TODO: Fill this in
+			var shineAudio = new Audio('source/shine.mp3');
+			shineAudio.play();
 		}
 		
 		public shellMultiShine() {
-			//TODO: Fill this in
+			var multiShineAudio = new Audio('source/multishine.mp3');
+			multiShineAudio.play();
 		}
 		
 

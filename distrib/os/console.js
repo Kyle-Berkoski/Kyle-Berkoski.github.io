@@ -7,8 +7,8 @@
      The OS Console - stdIn and stdOut by default.
      Note: This is not the Shell. The Shell is the "command line interface" (CLI) or interpreter for this console.
      ------------ */
-var TSOS;
-(function (TSOS) {
+var SDOS;
+(function (SDOS) {
     var Console = (function () {
         function Console(currentFont, currentFontSize, currentXPosition, currentYPosition, buffer) {
             if (currentFont === void 0) { currentFont = _DefaultFontFamily; }
@@ -63,7 +63,33 @@ var TSOS;
             //
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             //         Consider fixing that.
-            if (text !== "") {
+            if (text == "backspace") {
+                var oldXPosition = 0;
+                if (_TextHistory.length == 1) {
+                    //There's only one element in the array so grab that
+                    var historyLocation = 0;
+                }
+                else if (_TextHistory.length >= 1) {
+                    // The most recent character is at the end of the array, so grab that
+                    var historyLocation = _TextHistory.length - 1;
+                }
+                // This is the width of the previous character
+                var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, _TextHistory[historyLocation]);
+                // go back the width of the character 
+                oldXPosition = this.currentXPosition - offset;
+                /**
+                 * oldXPosition: The upper left X value to start the rectangle
+                 * currentYPosition: The upper left y value to start the rectangle
+                 * offset: The width of the rectangle
+                 * 20: Height of the rectangle
+                 */
+                _DrawingContext.clearRect(oldXPosition, this.currentYPosition - 15, offset, 20);
+                // Set the current X position to where we are now
+                this.currentXPosition = oldXPosition;
+                //Remove the value and the backspace from the _TextHistory array
+                _TextHistory.length = _TextHistory.length - 1;
+            }
+            else if (text !== "") {
                 // Draw the text at the current X and Y coordinates.
                 _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
                 // Move the current X position.
@@ -84,6 +110,6 @@ var TSOS;
             // TODO: Handle scrolling. (iProject 1)
         };
         return Console;
-    })();
-    TSOS.Console = Console;
-})(TSOS || (TSOS = {}));
+    }());
+    SDOS.Console = Console;
+})(SDOS || (SDOS = {}));

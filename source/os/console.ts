@@ -69,32 +69,31 @@ module SDOS {
 			
             if (text == "backspace") {
 				var oldXPosition = 0;
-				debugger;
-				if (_TextHistory.length > 0){
 					if (_TextHistory.length == 1) {
-						if(_TextHistory[0] !== "backspace"){
-							var historyLocation = 0;
-						} else {
-							_TextHistory = [];
-						}				
-					} else if (_TextHistory.length >= 2) {
-						// The most recent input is backspace, or you rolled a 3, so go back 2 spaces
-						var historyLocation = _TextHistory.length - 2;
+						//There's only one element in the array so grab that
+						var historyLocation = 0;										
+					} else if (_TextHistory.length >= 1) {
+						// The most recent character is at the end of the array, so grab that
+						var historyLocation = _TextHistory.length - 1;
 					}
 					// This is the width of the previous character
 					var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, _TextHistory[historyLocation]);
 					// go back the width of the character 
 					oldXPosition = this.currentXPosition - offset
 					
-					
-					//_DrawingContext.fillStyle = "red";
+					/**
+					 * oldXPosition: The upper left X value to start the rectangle
+					 * currentYPosition: The upper left y value to start the rectangle
+					 * offset: The width of the rectangle
+					 * 20: Height of the rectangle
+					 */
 					_DrawingContext.clearRect(oldXPosition, this.currentYPosition-15, offset, 20);
 					 
 					 // Set the current X position to where we are now
 					this.currentXPosition = oldXPosition;
 					//Remove the value and the backspace from the _TextHistory array
-					_TextHistory.length = _TextHistory.length - 2;
-				}
+					_TextHistory.length = _TextHistory.length - 1;
+				
 					
 				
 				

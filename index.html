@@ -3,9 +3,9 @@
 <head>
    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
    <meta name="author"             content="Alan G. Labouseur" />
-   <link rel="stylesheet" href="tsos.css" type="text/css" media="screen" />
+   <link rel="stylesheet" href="SDOS.css" type="text/css" media="screen" />
    <title>
-      TSOS - a browser-based virtual Operating System in TypeScript
+      SDOS - a browser-based virtual Operating System that kicks fuckin ass dude
    </title>
 
    <!-- Globals CONSTANTS and _Variables. Must included be first. -->
@@ -31,13 +31,30 @@
    <!-- Other Routines -->
    <script type="text/javascript" src="distrib/utils.js"></script>
    <!-- Uncomment the line below to enable GLaDOS testing. -->
-   <script type="text/javascript" src="http://www.labouseur.com/courses/os/projects/glados.js"></script>
+   <!--<script type="text/javascript" src="http://www.labouseur.com/courses/os/projects/glados.js"></script>-->
 </head>
 
 <body onload="onDocumentLoad()">
 
 <div id="divMain" style="width:100%;">
+   <div id="titleBar" style="height:25%; width:100%; margin:3px;">
+	   <h3>SDOS - The kick fuckin ass OS</h3> 
+   </div>
 
+   <br/>
+
+   <div id="dateBar"></div>
+
+   <br/>
+
+   <div id="timeBar"></div>
+
+   <br/>
+
+   <div id="statusBar"></div>
+	
+   <br/>
+	
    <div id="divButtonBar" style="margin:4px;">
       <input type="button"
              id = "btnStartOS"
@@ -45,7 +62,7 @@
              class="normal_button"
              value="Start"
              tabindex="0"
-             onclick="TSOS.Control.hostBtnStartOS_click(this);">
+             onclick="SDOS.Control.hostBtnStartOS_click(this);">
 
       <input type="button"
              id = "btnHaltOS"
@@ -54,7 +71,7 @@
              disabled="disabled"
              value="Halt"
              tabindex="1"
-             onclick="TSOS.Control.hostBtnHaltOS_click(this);">
+             onclick="SDOS.Control.hostBtnHaltOS_click(this);">
 
       <input type="button"
              id = "btnReset"
@@ -63,7 +80,7 @@
              disabled="disabled"
              value="Reset"
              tabindex="2"
-             onclick="TSOS.Control.hostBtnReset_click(this);">
+             onclick="SDOS.Control.hostBtnReset_click(this);">
    </div>
 
    <div id="divConsole" style="margin:4px; width:500px; height:500px; float:left;">

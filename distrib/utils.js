@@ -3,8 +3,8 @@
 
    Utility functions.
    -------- */
-var TSOS;
-(function (TSOS) {
+var SDOS;
+(function (SDOS) {
     var Utils = (function () {
         function Utils() {
         }
@@ -31,11 +31,11 @@ var TSOS;
                 var ch = str[i];
                 var code = 0;
                 if ("abcedfghijklmABCDEFGHIJKLM".indexOf(ch) >= 0) {
-                    code = str.charCodeAt(i) + 13; // It's okay to use 13.  It's not a magic number, it's called rot13.
+                    code = str.charCodeAt(Number(i)) + 13; // It's okay to use 13.  It's not a magic number, it's called rot13.
                     retVal = retVal + String.fromCharCode(code);
                 }
                 else if ("nopqrstuvwxyzNOPQRSTUVWXYZ".indexOf(ch) >= 0) {
-                    code = str.charCodeAt(i) - 13; // It's okay to use 13.  See above.
+                    code = str.charCodeAt(Number(i)) - 13; // It's okay to use 13.  See above.
                     retVal = retVal + String.fromCharCode(code);
                 }
                 else {
@@ -45,6 +45,6 @@ var TSOS;
             return retVal;
         };
         return Utils;
-    })();
-    TSOS.Utils = Utils;
-})(TSOS || (TSOS = {}));
+    }());
+    SDOS.Utils = Utils;
+})(SDOS || (SDOS = {}));

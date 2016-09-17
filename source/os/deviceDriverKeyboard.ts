@@ -53,12 +53,16 @@ module SDOS {
             } else if (((keyCode >= 48) && (keyCode <= 57)) ||   // digits
                         (keyCode == 32)                     ||   // space
                         (keyCode == 13)) {                       // enter
-                chr = String.fromCharCode(keyCode);
-				_TextHistory.push(chr);
+                
+				debugger;
+				chr = String.fromCharCode(keyCode);
+				// Only store the value if it's a digit
+				if ((keyCode >= 48) && (keyCode <= 57)){
+					_TextHistory.push(chr);
+				}
                 _KernelInputQueue.enqueue(chr);
             } else if (keyCode == 8) { //backspace
 				chr = "backspace";
-				_TextHistory.push(chr);
 				_KernelInputQueue.enqueue(chr);
 			} else if (keyCode == 9) { //Tab
 				

@@ -21,8 +21,8 @@
 //
 // Control Services
 //
-var TSOS;
-(function (TSOS) {
+var SDOS;
+(function (SDOS) {
     var Control = (function () {
         function Control() {
         }
@@ -33,7 +33,7 @@ var TSOS;
             // Get a global reference to the drawing context.
             _DrawingContext = _Canvas.getContext("2d");
             // Enable the added-in canvas text functions (see canvastext.ts for provenance and details).
-            TSOS.CanvasTextFunctions.enable(_DrawingContext); // Text functionality is now built in to the HTML5 canvas. But this is old-school, and fun, so we'll keep it.
+            SDOS.CanvasTextFunctions.enable(_DrawingContext); // Text functionality is now built in to the HTML5 canvas. But this is old-school, and fun, so we'll keep it.
             // Clear the log text box.
             // Use the TypeScript cast to HTMLInputElement
             document.getElementById("taHostLog").value = "";
@@ -48,6 +48,10 @@ var TSOS;
                 _GLaDOS = new Glados();
                 _GLaDOS.init();
             }
+            // Set the current date. Div Id = dateBar
+            this.setDateBar();
+            // Set the current time. Div Id = timeBar
+            this.setTimeBar();
         };
         Control.hostLog = function (msg, source) {
             if (source === void 0) { source = "?"; }
@@ -74,12 +78,12 @@ var TSOS;
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
             // ... Create and initialize the CPU (because it's part of the hardware)  ...
-            _CPU = new TSOS.Cpu(); // Note: We could simulate multi-core systems by instantiating more than one instance of the CPU here.
+            _CPU = new SDOS.Cpu(); // Note: We could simulate multi-core systems by instantiating more than one instance of the CPU here.
             _CPU.init(); //       There's more to do, like dealing with scheduling and such, but this would be a start. Pretty cool.
             // ... then set the host clock pulse ...
-            _hardwareClockID = setInterval(TSOS.Devices.hostClockPulse, CPU_CLOCK_INTERVAL);
+            _hardwareClockID = setInterval(SDOS.Devices.hostClockPulse, CPU_CLOCK_INTERVAL);
             // .. and call the OS Kernel Bootstrap routine.
-            _Kernel = new TSOS.Kernel();
+            _Kernel = new SDOS.Kernel();
             _Kernel.krnBootstrap(); // _GLaDOS.afterStartup() will get called in there, if configured.
         };
         Control.hostBtnHaltOS_click = function (btn) {
@@ -98,7 +102,46 @@ var TSOS;
             // be reloaded from the server. If it is false or not specified the browser may reload the
             // page from its cache, which is not what we want.
         };
+        Control.setDateBar = function () {
+            // getMonth returns a number and I want the month shorthand
+            var monthsOfTheYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+            var dateInfo = new Date();
+            // Typescript doesn't let you convert A NUMBER TO A STRING CMON so we have to declare it as "any" type to do toString
+            var date = dateInfo.getDate();
+            date = date.toString();
+            var month = dateInfo.getMonth();
+            var year = dateInfo.getFullYear();
+            year = year.toString();
+            var fullDate = "Date: " + monthsOfTheYear[month] + " " + date + ", " + year;
+            document.getElementById("dateBar").innerHTML = fullDate;
+        };
+        Control.setTimeBar = function () {
+            var timeInfo = new Date();
+            var hour = timeInfo.getHours();
+            hour = hour.toString();
+            var minute = timeInfo.getMinutes();
+            // It looks dumb if minute is a single digit
+            if (minute < 10) {
+                minute = "0" + minute.toString();
+            }
+            else {
+                minute = minute.toString();
+            }
+            // It looks dumb if second is a single digit
+            var second = timeInfo.getSeconds();
+            if (second < 10) {
+                second = "0" + second.toString();
+            }
+            else {
+                second = second.toString();
+            }
+            // Set the time bar
+            var fullTime = hour + ":" + minute + ":" + second;
+            document.getElementById("timeBar").innerHTML = "Time: " + fullTime;
+            // This is the recursive function that keeps the time going
+            var timeout = setTimeout(Control.setTimeBar, 1000);
+        };
         return Control;
-    })();
-    TSOS.Control = Control;
-})(TSOS || (TSOS = {}));
+    }());
+    SDOS.Control = Control;
+})(SDOS || (SDOS = {}));
