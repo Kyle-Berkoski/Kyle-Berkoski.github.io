@@ -110,6 +110,18 @@ module SDOS {
 								  "Updates the status bar to <string>");
 			this.commandList[this.commandList.length] = sc;
 			
+			// shine 
+			sc = new ShellCommand(this.shellShine,
+								  "shine",
+								  "Reflects projectiles");
+			this.commandList[this.commandList.length] = sc;
+			
+			// multiShine 
+			sc = new ShellCommand(this.shellMultiShine,
+								  "multishine",
+								  "UNPLUG YOUR CONTROLLER DAWG");
+			this.commandList[this.commandList.length] = sc;
+			
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -388,10 +400,17 @@ module SDOS {
 					_StdOut.putText("Usage status <string> Please supply a string.")
 				}
 				
-			}
-			
-			
+			}			
 		}
+		
+		public shellShine() {
+			//TODO: Fill this in
+		}
+		
+		public shellMultiShine() {
+			//TODO: Fill this in
+		}
+		
 
     }
 }

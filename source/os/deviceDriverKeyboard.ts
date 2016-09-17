@@ -60,6 +60,8 @@ module SDOS {
 				chr = "backspace";
 				_TextHistory.push(chr);
 				_KernelInputQueue.enqueue(chr);
+			} else if (keyCode == 9) { //Tab
+				
 			}
         }
     }

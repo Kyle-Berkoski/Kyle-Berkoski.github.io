@@ -50,6 +50,7 @@ var _StdIn;    // Same "to null or not to null" issue as above.
 var _StdOut;
 var _TextHistory = [];
 var _CommandHistory = [];
+var _CommandList = ["ver", "help", "shutdown", "cls", "man", "trace", "rot13", "prompt", "rdc", "date", "whereami", "klingon", "status", "shine", "multishine"];
 
 // UI
 var _Console: SDOS.Console;
