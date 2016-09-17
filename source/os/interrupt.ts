@@ -2,7 +2,7 @@
    Interrupt.ts
    ------------ */
 
-module TSOS {
+module SDOS {
     export class Interrupt {
         constructor(public irq, public params) {
         }

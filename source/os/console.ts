@@ -9,7 +9,7 @@
      Note: This is not the Shell. The Shell is the "command line interface" (CLI) or interpreter for this console.
      ------------ */
 
-module TSOS {
+module SDOS {
 
     export class Console {
 
@@ -65,13 +65,40 @@ module TSOS {
             //
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             //         Consider fixing that.
-            if (text !== "") {
-                // Draw the text at the current X and Y coordinates.
+			
+			
+            if (text == "backspace") {
+				var oldXPosition = 0;
+				// There's only one thing in that array so grab that
+				if (_TextHistory.length == 1) {
+					var historyLocation = 0;
+				} else if (_TextHistory.length >= 2) {
+					// The most recent input is backspace, or you rolled a 3, so go back 2 spaces
+					var historyLocation = _TextHistory.length - 2;
+				}
+				// This is the width of the previous character
+				var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, _TextHistory[historyLocation]);
+				// go back the width of the character 
+				oldXPosition = this.currentXPosition - offset
+				
+				
+				//_DrawingContext.fillStyle = "red";
+				_DrawingContext.clearRect(oldXPosition, this.currentYPosition-15, offset, 20);
+				 
+				 // Set the current X position to where we are now
+				this.currentXPosition = oldXPosition;
+				//Remove the value from the _TextHistory array
+				_TextHistory.length = _TextHistory.length - 2;
+				
+				
+				
+            } else if (text !== ""){
+				// Draw the text at the current X and Y coordinates.
                 _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
                 // Move the current X position.
                 var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
                 this.currentXPosition = this.currentXPosition + offset;
-            }
+			}
          }
 
         public advanceLine(): void {

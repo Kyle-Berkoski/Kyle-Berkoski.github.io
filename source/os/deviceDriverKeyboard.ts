@@ -9,7 +9,7 @@
    The Kernel Keyboard Device Driver.
    ---------------------------------- */
 
-module TSOS {
+module SDOS {
 
     // Extends DeviceDriver
     export class DeviceDriverKeyboard extends DeviceDriver {
@@ -47,14 +47,20 @@ module TSOS {
                 if (isShifted) {
                     chr = String.fromCharCode(keyCode);
                 }
+				_TextHistory.push(chr);
                 // TODO: Check for caps-lock and handle as shifted if so.
                 _KernelInputQueue.enqueue(chr);
             } else if (((keyCode >= 48) && (keyCode <= 57)) ||   // digits
                         (keyCode == 32)                     ||   // space
                         (keyCode == 13)) {                       // enter
                 chr = String.fromCharCode(keyCode);
+				_TextHistory.push(chr);
                 _KernelInputQueue.enqueue(chr);
-            }
+            } else if (keyCode == 8) { //backspace
+				chr = "backspace";
+				_TextHistory.push(chr);
+				_KernelInputQueue.enqueue(chr);
+			}
         }
     }
 }

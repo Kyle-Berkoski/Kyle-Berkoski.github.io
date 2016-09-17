@@ -15,7 +15,7 @@
 
 // TODO: Write a base class / prototype for system services and let Shell inherit from it.
 
-module TSOS {
+module SDOS {
     export class Shell {
         // Properties
         public promptStr = ">";
@@ -374,7 +374,6 @@ module TSOS {
 		public shellStatus(args){
 			var statusString = "";
 			// Args with spaces are stored in array, so loop through and make it a string
-			_SarcasticMode = true;
 			if(args.length > 1){
 				for (var i = 0; i < args.length; i++){
 					statusString = statusString + args[i] + " ";

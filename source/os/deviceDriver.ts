@@ -4,7 +4,7 @@
      The "base class" for all Device Drivers.
      ------------------------------ */
 
-module TSOS {
+module SDOS {
     export class DeviceDriver {
         public version = '0.07';
         public status = 'unloaded';
