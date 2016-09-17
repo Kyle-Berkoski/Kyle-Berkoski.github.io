@@ -62,7 +62,8 @@ module SDOS {
 				}
                 _KernelInputQueue.enqueue(chr);
             } else if (keyCode == 8) { //backspace
-				chr = "backspace";
+				debugger;
+				chr = String.fromCharCode(8);
 				_KernelInputQueue.enqueue(chr);
 			} else if (keyCode == 9) { //Tab
 				
