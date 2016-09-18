@@ -83,11 +83,32 @@ module SDOS {
 					this.currentXPosition = 11;
 					// Store the most recent command in a string
 					var currentCommand = _CommandHistory[_CurrentLocation];
-					// Loop through the string and put the command back on the canvas
-					for (var i = 0; i < currentCommand.length; i++){
-						this.putText(currentCommand[i]);
-					}
+					// Put the command back on the canvas
+					_StdOut.putText(currentCommand);
+					// Add it to the buffer so the user can enter the command again
 					this.buffer = currentCommand;
+				} else if (chr == String.fromCharCode(9)) {
+					/**
+					 * Much like myself, it works, but it's ugly.
+					 * Maybe come back and fix this.
+					 */
+					debugger;
+					var currentCharsTyped = "";
+					
+					// Loop through the text history and add it to the string to be completed
+					for (var i = 0; i < _TextHistory.length; i++){
+						currentCharsTyped = currentCharsTyped + _TextHistory[i];
+					}
+					// Now loop through the list of commands and trim the length to what we have
+					for (var j = 0; j < _OsShell.commandList.length; j++){
+						if (currentCharsTyped == _OsShell.commandList[j].command.slice(0,currentCharsTyped.length)) {
+							// We print the full command
+							_StdOut.advanceLine();
+							_StdOut.putText(_OsShell.commandList[j].command);
+						}						
+					}
+					_StdOut.advanceLine();
+					_StdOut.putText(">");
 				}
 				else {
                     // This is a "normal" character, so ...
@@ -130,7 +151,8 @@ module SDOS {
             this.currentYPosition += _DefaultFontSize + 
                                      _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                                      _FontHeightMargin;
-
+			// Now that we're on a new line, we can clear the text history
+			_TextHistory = [];
             // TODO: Handle scrolling. (iProject 1)
         }
 		

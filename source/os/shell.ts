@@ -255,6 +255,7 @@ module SDOS {
         }
 
         public shellHelp(args) {
+			debugger;
             _StdOut.putText("Commands:");
             for (var i in _OsShell.commandList) {
                 _StdOut.advanceLine();

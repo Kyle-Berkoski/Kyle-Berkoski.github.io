@@ -63,6 +63,8 @@ module SDOS {
 				chr = String.fromCharCode(8);
 				_KernelInputQueue.enqueue(chr);
 			} else if (keyCode == 9) { //Tab
+				chr = String.fromCharCode(9);
+				_KernelInputQueue.enqueue(chr);
 				
 			} else if (keyCode == 38) { // Up arrow
 				debugger;
