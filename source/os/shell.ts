@@ -251,6 +251,7 @@ module SDOS {
 
         public shellVer(args) {
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
+			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellHelp(args) {
@@ -259,6 +260,7 @@ module SDOS {
                 _StdOut.advanceLine();
                 _StdOut.putText("  " + _OsShell.commandList[i].command + " " + _OsShell.commandList[i].description);
             }
+			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellShutdown(args) {
@@ -266,11 +268,13 @@ module SDOS {
              // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
             // TODO: Stop the final prompt from being displayed.  If possible.  Not a high priority.  (Damn OCD!)
+			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellCls(args) {
             _StdOut.clearScreen();
             _StdOut.resetXY();
+			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellMan(args) {
@@ -310,6 +314,7 @@ module SDOS {
             } else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
             }
+			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellTrace(args) {
@@ -334,6 +339,7 @@ module SDOS {
             } else {
                 _StdOut.putText("Usage: trace <on | off>");
             }
+			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellRot13(args) {
@@ -343,6 +349,7 @@ module SDOS {
             } else {
                 _StdOut.putText("Usage: rot13 <string>  Please supply a string.");
             }
+			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellPrompt(args) {
@@ -351,6 +358,7 @@ module SDOS {
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+			_CurrentLocation = _CurrentLocation + 1;
         }
 		
 		public shellRdc() {
@@ -361,6 +369,7 @@ module SDOS {
 			_StdOut.putText("...");
 			_StdOut.advanceLine();
 			_StdOut.putText("Complete.");
+			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellDate() {
@@ -368,6 +377,7 @@ module SDOS {
 				dateTime = dateTime.toString();
 				
 			_StdOut.putText(dateTime);
+			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellLocation() {	
@@ -375,12 +385,14 @@ module SDOS {
 			var locations = ["Europe.", "Japan.", "the Moon.", "Russia.", "herself.", "the local hiking trails."];
 			var randNum = Math.floor(Math.random() * 5) + 0;
 			_StdOut.putText("Ami is having a wonderful time exploring " + locations[randNum]);
+			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellKlingon() {
 			_StdOut.putText("tlhIngan Hol Dajatlh'a'?");
 			_StdOut.advanceLine();
 			_StdOut.putText("rut vIchel 'e' vIHar.");
+			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellStatus(args){
@@ -400,17 +412,20 @@ module SDOS {
 					_StdOut.putText("Usage status <string> Please supply a string.")
 				}
 				
-			}			
+			}
+			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellShine() {
 			var shineAudio = new Audio('source/shine.mp3');
 			shineAudio.play();
+			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellMultiShine() {
 			var multiShineAudio = new Audio('source/multishine.mp3');
 			multiShineAudio.play();
+			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 

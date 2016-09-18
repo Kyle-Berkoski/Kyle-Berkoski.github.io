@@ -35,7 +35,6 @@ module SDOS {
         }
 
         public handleInput(): void {
-			debugger;
             while (_KernelInputQueue.getSize() > 0) {
                 // Get the next character from the kernel input queue.
                 var chr = _KernelInputQueue.dequeue();
@@ -44,10 +43,11 @@ module SDOS {
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
-                    // ... and reset our buffer.
+                    // Add the command to the command history
+					_CommandHistory.push(this.buffer);
+					// ... and reset our buffer.
                     this.buffer = "";
-                } else if (chr === String.fromCharCode(8)) {
-					debugger;
+                } else if (chr == String.fromCharCode(8)) {
 					if (this.buffer.length >= 1){
 						var oldXPosition = 0;
 						if (_TextHistory.length == 1) {
@@ -77,7 +77,19 @@ module SDOS {
 						// We have to remove the character from the buffer as well
 						this.buffer = this.buffer.slice(0, -1);
 					}
-				} else {
+				} else if (chr == String.fromCharCode(38) || chr == String.fromCharCode(40)){
+					// Clear out whatever was already typed, and set the x position back to the beginning
+					_StdOut.clearLine();
+					this.currentXPosition = 11;
+					// Store the most recent command in a string
+					var currentCommand = _CommandHistory[_CurrentLocation];
+					// Loop through the string and put the command back on the canvas
+					for (var i = 0; i < currentCommand.length; i++){
+						this.putText(currentCommand[i]);
+					}
+					this.buffer = currentCommand;
+				}
+				else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
                     this.putText(chr);
@@ -121,6 +133,10 @@ module SDOS {
 
             // TODO: Handle scrolling. (iProject 1)
         }
+		
+		public clearLine(): void {
+			_DrawingContext.clearRect(11, this.currentYPosition-15, _Canvas.width-5, 20);
+		}
 			
     }
  }

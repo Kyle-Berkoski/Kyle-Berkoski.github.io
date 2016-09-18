@@ -53,8 +53,6 @@ module SDOS {
             } else if (((keyCode >= 48) && (keyCode <= 57)) ||   // digits
                         (keyCode == 32)                     ||   // space
                         (keyCode == 13)) {                       // enter
-                
-				debugger;
 				chr = String.fromCharCode(keyCode);
 				// Only store the value if it's a digit
 				if ((keyCode >= 48) && (keyCode <= 57)){
@@ -62,23 +60,24 @@ module SDOS {
 				}
                 _KernelInputQueue.enqueue(chr);
             } else if (keyCode == 8) { // Backspace
-				debugger;
 				chr = String.fromCharCode(8);
 				_KernelInputQueue.enqueue(chr);
 			} else if (keyCode == 9) { //Tab
 				
 			} else if (keyCode == 38) { // Up arrow
+				debugger;
 				// Only go up if we can
-				if (_CurrentLocation < _CommandHistory.length){
-					_CurrentLocation = _CurrentLocation + 1;
+				if (_CurrentLocation <= _CommandHistory.length){
+					_CurrentLocation = _CurrentLocation - 1;
 					chr = String.fromCharCode(38);
 					_KernelInputQueue.enqueue(chr);
 				}
 				
 			} else if (keyCode == 40) { // Down Arrow
+				debugger;
 				// Only go down if we can
 				if (_CurrentLocation > 0) {
-					_CurrentLocation = _CurrentLocation - 1;
+					_CurrentLocation = _CurrentLocation + 1;
 					chr = String.fromCharCode(38);
 					_KernelInputQueue.enqueue(chr);
 				}
