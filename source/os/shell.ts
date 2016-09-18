@@ -254,8 +254,7 @@ module SDOS {
 			_CurrentLocation = _CurrentLocation + 1;
         }
 
-        public shellHelp(args) {
-			debugger;
+        public shellHelp(args) {			
             _StdOut.putText("Commands:");
             for (var i in _OsShell.commandList) {
                 _StdOut.advanceLine();

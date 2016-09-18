@@ -92,7 +92,6 @@ module SDOS {
 					 * Much like myself, it works, but it's ugly.
 					 * Maybe come back and fix this.
 					 */
-					debugger;
 					var currentCharsTyped = "";
 					
 					// Loop through the text history and add it to the string to be completed
@@ -154,6 +153,13 @@ module SDOS {
 			// Now that we're on a new line, we can clear the text history
 			_TextHistory = [];
             // TODO: Handle scrolling. (iProject 1)
+			if(this.currentYPosition > _Canvas.height){
+				var canvasContents = _DrawingContext.getImageData(0, 0, _Canvas.width, _Canvas.height);
+				_DrawingContext.clearRect(0, 0, _Canvas.width, _Canvas.height)
+				_DrawingContext.putImageData(canvasContents, 0, -10);
+				this.currentYPosition = this.currentYPosition - 10
+			}
+			
         }
 		
 		public clearLine(): void {
