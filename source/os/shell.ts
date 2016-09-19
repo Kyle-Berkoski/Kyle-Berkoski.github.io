@@ -122,6 +122,12 @@ module SDOS {
 								  "UNPLUG YOUR CONTROLLER DAWG");
 			this.commandList[this.commandList.length] = sc;
 			
+			// load <string>
+			sc = new ShellCommand(this.shellLoad,
+								  "load",
+								  "<string> - loads the file at given location <string>");
+			this.commandList[this.commandList.length] = sc;
+			
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -426,6 +432,28 @@ module SDOS {
 			var multiShineAudio = new Audio('source/multishine.mp3');
 			multiShineAudio.play();
 			_CurrentLocation = _CurrentLocation + 1;
+		}
+		
+		public shellLoad(args) {
+			debugger;
+			var input = document.getElementById("taProgramInput").value;
+			var isValid = true;
+			// I fuckin hate this but I don't know regex. I'll come back and do this better when I know regex
+			if(input !== ""){
+				for (var i = 0; i < input.length; i++){
+					if (input[i] !== "A" && input[i] !== "B" && input[i] !== "C" && input[i] !== "D" && input[i] !== "E" && input[i] !== "F" && input[i] !== "0" && input[i] !== "1" && input[i] !== "2" && input[i] !== "3" && input[i] !== "4" && input[i] !== "5" && input[i] !== "6" && input[i] !== "7" && input[i] !== "8" && input[i] !== "9" && input[i] !== " "){
+						isValid = false;
+						break;
+					}
+				}
+			}
+			if (!isValid){
+				document.getElementById("taProgramInput").innerHTML = "";
+				_StdOut.putText("Input not valid.");
+				_StdOut.advanceLine();
+				_StdOut.putText("Illegal character found at location: " + i);
+				_StdOut.advanceLine();
+			}
 		}
 		
 
