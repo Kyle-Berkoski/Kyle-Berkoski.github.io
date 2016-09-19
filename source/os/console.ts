@@ -141,6 +141,7 @@ module SDOS {
          }
 
         public advanceLine(): void {
+			debugger;
             this.currentXPosition = 0;
             /*
              * Font size measures from the baseline to the highest point in the font.
@@ -150,14 +151,17 @@ module SDOS {
             this.currentYPosition += _DefaultFontSize + 
                                      _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                                      _FontHeightMargin;
+			var lineHeight = _DefaultFontSize + 
+                             _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                             _FontHeightMargin;
 			// Now that we're on a new line, we can clear the text history
 			_TextHistory = [];
             // TODO: Handle scrolling. (iProject 1)
 			if(this.currentYPosition > _Canvas.height){
 				var canvasContents = _DrawingContext.getImageData(0, 0, _Canvas.width, _Canvas.height);
-				_DrawingContext.clearRect(0, 0, _Canvas.width, _Canvas.height)
-				_DrawingContext.putImageData(canvasContents, 0, -10);
-				this.currentYPosition = this.currentYPosition - 10
+				_DrawingContext.clearRect(0, 0, _Canvas.width, _Canvas.height);
+				_DrawingContext.putImageData(canvasContents, 0, -lineHeight);
+				this.currentYPosition = this.currentYPosition - lineHeight;
 			}
 			
         }
