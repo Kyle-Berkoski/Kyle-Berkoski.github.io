@@ -49,6 +49,7 @@ module SDOS {
                     this.buffer = "";
                 } else if (chr == String.fromCharCode(8)) {
 					if (this.buffer.length >= 1){
+						var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
 						var oldXPosition = 0;
 						if (_TextHistory.length == 1) {
 							//There's only one element in the array so grab that
@@ -93,21 +94,22 @@ module SDOS {
 					 * Maybe come back and fix this.
 					 */
 					var currentCharsTyped = "";
-					
 					// Loop through the text history and add it to the string to be completed
 					for (var i = 0; i < _TextHistory.length; i++){
 						currentCharsTyped = currentCharsTyped + _TextHistory[i];
 					}
 					// Now loop through the list of commands and trim the length to what we have
 					for (var j = 0; j < _OsShell.commandList.length; j++){
-						if (currentCharsTyped == _OsShell.commandList[j].command.slice(0,currentCharsTyped.length)) {
-							// We print the full command
-							_StdOut.advanceLine();
-							_StdOut.putText(_OsShell.commandList[j].command);
+						if (currentCharsTyped == _CommandListSorted[j].slice(0,currentCharsTyped.length)) {
+							// Clear the line so we can put the command in
+							_StdOut.clearLine();
+							_StdOut.putText(_CommandListSorted[j]);
+							// Put the command in the buffer so the user can actually input the command
+							this.buffer = _CommandListSorted[j];
+							// We're done here
+							break;
 						}						
 					}
-					_StdOut.advanceLine();
-					_StdOut.putText(">");
 				}
 				else {
                     // This is a "normal" character, so ...
@@ -151,9 +153,7 @@ module SDOS {
             this.currentYPosition += _DefaultFontSize + 
                                      _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                                      _FontHeightMargin;
-			var lineHeight = _DefaultFontSize + 
-                             _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
-                             _FontHeightMargin;
+			var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
 			// Now that we're on a new line, we can clear the text history
 			_TextHistory = [];
             // TODO: Handle scrolling. (iProject 1)
@@ -168,6 +168,8 @@ module SDOS {
 		
 		public clearLine(): void {
 			_DrawingContext.clearRect(11, this.currentYPosition-15, _Canvas.width-5, 20);
+			// Just past the prompt string
+			this.currentXPosition = 12;
 		}
 			
     }

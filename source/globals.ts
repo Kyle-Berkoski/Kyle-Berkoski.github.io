@@ -51,6 +51,7 @@ var _StdOut;
 var _TextHistory = [];
 var _CommandHistory = [];
 var _CurrentLocation = 0;
+var _CommandListSorted = ["cls", "date", "help", "klingon", "man", "multishine", "prompt", "rdc", "rot13", "shine", "shutdown", "status", "trace", "ver", "whereami"]
 // UI
 var _Console: SDOS.Console;
 var _OsShell: SDOS.Shell;
