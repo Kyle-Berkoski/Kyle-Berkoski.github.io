@@ -143,7 +143,6 @@ module SDOS {
          }
 
         public advanceLine(): void {
-			debugger;
             this.currentXPosition = 0;
             /*
              * Font size measures from the baseline to the highest point in the font.

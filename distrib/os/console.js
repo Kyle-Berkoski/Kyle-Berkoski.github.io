@@ -42,8 +42,75 @@ var SDOS;
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
+                    // Add the command to the command history
+                    _CommandHistory.push(this.buffer);
                     // ... and reset our buffer.
                     this.buffer = "";
+                }
+                else if (chr == String.fromCharCode(8)) {
+                    if (this.buffer.length >= 1) {
+                        var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
+                        var oldXPosition = 0;
+                        if (_TextHistory.length == 1) {
+                            //There's only one element in the array so grab that
+                            var historyLocation = 0;
+                        }
+                        else if (_TextHistory.length >= 1) {
+                            // The most recent character is at the end of the array, so grab that
+                            var historyLocation = _TextHistory.length - 1;
+                        }
+                        // This is the width of the previous character
+                        var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, _TextHistory[historyLocation]);
+                        // go back the width of the character 
+                        oldXPosition = this.currentXPosition - offset;
+                        /**
+                         * oldXPosition: The upper left X value to start the rectangle
+                         * currentYPosition: The upper left y value to start the rectangle
+                         * offset: The width of the rectangle
+                         * 20: Height of the rectangle
+                         */
+                        _DrawingContext.clearRect(oldXPosition, this.currentYPosition - 15, offset, 20);
+                        // Set the current X position to where we are now
+                        this.currentXPosition = oldXPosition;
+                        // Remove the value and the backspace from the _TextHistory array
+                        _TextHistory.length = _TextHistory.length - 1;
+                        // We have to remove the character from the buffer as well
+                        this.buffer = this.buffer.slice(0, -1);
+                    }
+                }
+                else if (chr == String.fromCharCode(38) || chr == String.fromCharCode(40)) {
+                    // Clear out whatever was already typed, and set the x position back to the beginning
+                    _StdOut.clearLine();
+                    this.currentXPosition = 11;
+                    // Store the most recent command in a string
+                    var currentCommand = _CommandHistory[_CurrentLocation];
+                    // Put the command back on the canvas
+                    _StdOut.putText(currentCommand);
+                    // Add it to the buffer so the user can enter the command again
+                    this.buffer = currentCommand;
+                }
+                else if (chr == String.fromCharCode(9)) {
+                    /**
+                     * Much like myself, it works, but it's ugly.
+                     * Maybe come back and fix this.
+                     */
+                    var currentCharsTyped = "";
+                    // Loop through the text history and add it to the string to be completed
+                    for (var i = 0; i < _TextHistory.length; i++) {
+                        currentCharsTyped = currentCharsTyped + _TextHistory[i];
+                    }
+                    // Now loop through the list of commands and trim the length to what we have
+                    for (var j = 0; j < _OsShell.commandList.length; j++) {
+                        if (currentCharsTyped == _CommandListSorted[j].slice(0, currentCharsTyped.length)) {
+                            // Clear the line so we can put the command in
+                            _StdOut.clearLine();
+                            _StdOut.putText(_CommandListSorted[j]);
+                            // Put the command in the buffer so the user can actually input the command
+                            this.buffer = _CommandListSorted[j];
+                            // We're done here
+                            break;
+                        }
+                    }
                 }
                 else {
                     // This is a "normal" character, so ...
@@ -63,33 +130,7 @@ var SDOS;
             //
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             //         Consider fixing that.
-            if (text == "backspace") {
-                var oldXPosition = 0;
-                if (_TextHistory.length == 1) {
-                    //There's only one element in the array so grab that
-                    var historyLocation = 0;
-                }
-                else if (_TextHistory.length >= 1) {
-                    // The most recent character is at the end of the array, so grab that
-                    var historyLocation = _TextHistory.length - 1;
-                }
-                // This is the width of the previous character
-                var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, _TextHistory[historyLocation]);
-                // go back the width of the character 
-                oldXPosition = this.currentXPosition - offset;
-                /**
-                 * oldXPosition: The upper left X value to start the rectangle
-                 * currentYPosition: The upper left y value to start the rectangle
-                 * offset: The width of the rectangle
-                 * 20: Height of the rectangle
-                 */
-                _DrawingContext.clearRect(oldXPosition, this.currentYPosition - 15, offset, 20);
-                // Set the current X position to where we are now
-                this.currentXPosition = oldXPosition;
-                //Remove the value and the backspace from the _TextHistory array
-                _TextHistory.length = _TextHistory.length - 1;
-            }
-            else if (text !== "") {
+            if (text !== "") {
                 // Draw the text at the current X and Y coordinates.
                 _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
                 // Move the current X position.
@@ -107,7 +148,21 @@ var SDOS;
             this.currentYPosition += _DefaultFontSize +
                 _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                 _FontHeightMargin;
+            var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
+            // Now that we're on a new line, we can clear the text history
+            _TextHistory = [];
             // TODO: Handle scrolling. (iProject 1)
+            if (this.currentYPosition > _Canvas.height) {
+                var canvasContents = _DrawingContext.getImageData(0, 0, _Canvas.width, _Canvas.height);
+                _DrawingContext.clearRect(0, 0, _Canvas.width, _Canvas.height);
+                _DrawingContext.putImageData(canvasContents, 0, -lineHeight);
+                this.currentYPosition = this.currentYPosition - lineHeight;
+            }
+        };
+        Console.prototype.clearLine = function () {
+            _DrawingContext.clearRect(11, this.currentYPosition - 15, _Canvas.width - 5, 20);
+            // Just past the prompt string
+            this.currentXPosition = 12;
         };
         return Console;
     }());

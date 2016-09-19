@@ -54,7 +54,6 @@ var SDOS;
             else if (((keyCode >= 48) && (keyCode <= 57)) ||
                 (keyCode == 32) ||
                 (keyCode == 13)) {
-                debugger;
                 chr = String.fromCharCode(keyCode);
                 // Only store the value if it's a digit
                 if ((keyCode >= 48) && (keyCode <= 57)) {
@@ -63,10 +62,30 @@ var SDOS;
                 _KernelInputQueue.enqueue(chr);
             }
             else if (keyCode == 8) {
-                chr = "backspace";
+                chr = String.fromCharCode(8);
                 _KernelInputQueue.enqueue(chr);
             }
             else if (keyCode == 9) {
+                chr = String.fromCharCode(9);
+                _KernelInputQueue.enqueue(chr);
+            }
+            else if (keyCode == 38) {
+                debugger;
+                // Only go up if we can
+                if (_CurrentLocation <= _CommandHistory.length) {
+                    _CurrentLocation = _CurrentLocation - 1;
+                    chr = String.fromCharCode(38);
+                    _KernelInputQueue.enqueue(chr);
+                }
+            }
+            else if (keyCode == 40) {
+                debugger;
+                // Only go down if we can
+                if (_CurrentLocation > 0) {
+                    _CurrentLocation = _CurrentLocation + 1;
+                    chr = String.fromCharCode(38);
+                    _KernelInputQueue.enqueue(chr);
+                }
             }
         };
         return DeviceDriverKeyboard;

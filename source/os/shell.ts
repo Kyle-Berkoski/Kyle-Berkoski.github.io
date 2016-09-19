@@ -436,7 +436,7 @@ module SDOS {
 		
 		public shellLoad(args) {
 			debugger;
-			var input = document.getElementById("taProgramInput").value;
+			var input = document.getElementById("taProgramInput").innerHTML;
 			var isValid = true;
 			// I fuckin hate this but I don't know regex. I'll come back and do this better when I know regex
 			if(input !== ""){
