@@ -48,9 +48,11 @@ module TSOS {
 					// ... and reset our buffer.
                     this.buffer = "";
                 } else if (chr == String.fromCharCode(8)) {
+					debugger;
 					if (this.buffer.length >= 1){
 						var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
 						var oldXPosition = 0;
+						// Manage where we are in the history array
 						if (_TextHistory.length == 1) {
 							//There's only one element in the array so grab that
 							var historyLocation = 0;										
@@ -137,18 +139,22 @@ module TSOS {
             //
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             //         Consider fixing that.
-			
+			debugger;
 			
             if (text !== ""){
+				if (this.currentXPosition >= 490){
+					_StdOut.advanceLine(true);
+				}
 				// Draw the text at the current X and Y coordinates.
                 _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
-                // Move the current X position.
+				// Move the current X position.
                 var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
                 this.currentXPosition = this.currentXPosition + offset;
 			}
          }
 
-        public advanceLine(): void {
+        public advanceLine(lineIsWrapped): void {
+			debugger;
             this.currentXPosition = 0;
             /*
              * Font size measures from the baseline to the highest point in the font.
@@ -160,7 +166,9 @@ module TSOS {
                                      _FontHeightMargin;
 			var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
 			// Now that we're on a new line, we can clear the text history
-			_TextHistory = [];
+			if (!lineIsWrapped){
+				_TextHistory = [];
+			}			
             // TODO: Handle scrolling. (iProject 1)
 			if(this.currentYPosition > _Canvas.height){
 				var canvasContents = _DrawingContext.getImageData(0, 0, _Canvas.width, _Canvas.height);

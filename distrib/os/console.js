@@ -48,6 +48,7 @@ var TSOS;
                     this.buffer = "";
                 }
                 else if (chr == String.fromCharCode(8)) {
+                    debugger;
                     if (this.buffer.length >= 1) {
                         var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
                         var oldXPosition = 0;
@@ -137,7 +138,11 @@ var TSOS;
             //
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             //         Consider fixing that.
+            debugger;
             if (text !== "") {
+                if (this.currentXPosition >= 490) {
+                    _StdOut.advanceLine(true);
+                }
                 // Draw the text at the current X and Y coordinates.
                 _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
                 // Move the current X position.
@@ -145,7 +150,8 @@ var TSOS;
                 this.currentXPosition = this.currentXPosition + offset;
             }
         };
-        Console.prototype.advanceLine = function () {
+        Console.prototype.advanceLine = function (lineIsWrapped) {
+            debugger;
             this.currentXPosition = 0;
             /*
              * Font size measures from the baseline to the highest point in the font.
@@ -157,7 +163,9 @@ var TSOS;
                 _FontHeightMargin;
             var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
             // Now that we're on a new line, we can clear the text history
-            _TextHistory = [];
+            if (!lineIsWrapped) {
+                _TextHistory = [];
+            }
             // TODO: Handle scrolling. (iProject 1)
             if (this.currentYPosition > _Canvas.height) {
                 var canvasContents = _DrawingContext.getImageData(0, 0, _Canvas.width, _Canvas.height);
