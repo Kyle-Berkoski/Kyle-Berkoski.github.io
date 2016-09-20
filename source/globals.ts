@@ -25,7 +25,7 @@ const KEYBOARD_IRQ: number = 1;
 // Global Variables
 // TODO: Make a global object and use that instead of the "_" naming convention in the global namespace.
 //
-var _CPU: SDOS.Cpu;  // Utilize TypeScript's type annotation system to ensure that _CPU is an instance of the Cpu class.
+var _CPU: TSOS.Cpu;  // Utilize TypeScript's type annotation system to ensure that _CPU is an instance of the Cpu class.
 
 var _OSclock: number = 0;  // Page 23.
 
@@ -40,7 +40,7 @@ var _FontHeightMargin: number = 4;              // Additional space added to fon
 var _Trace: boolean = true;  // Default the OS trace to be on.
 
 // The OS Kernel and its queues.
-var _Kernel: SDOS.Kernel;
+var _Kernel: TSOS.Kernel;
 var _KernelInterruptQueue;          // Initializing this to null (which I would normally do) would then require us to specify the 'any' type, as below.
 var _KernelInputQueue: any = null;  // Is this better? I don't like uninitialized variables. But I also don't like using the type specifier 'any'
 var _KernelBuffers: any[] = null;   // when clearly 'any' is not what we want. There is likely a better way, but what is it?
@@ -55,8 +55,8 @@ var _CommandListSorted = ["cls", "date", "help", "klingon", "load", "man", "mult
 //var regexPattern = "^[A-Z0-9 ]*$"
 
 // UI
-var _Console: SDOS.Console;
-var _OsShell: SDOS.Shell;
+var _Console: TSOS.Console;
+var _OsShell: TSOS.Shell;
 
 // At least this OS is not trying to kill you. (Yet.)
 var _SarcasticMode: boolean = false;
@@ -71,5 +71,5 @@ var Glados: any = null;  // This is the function Glados() in glados.js on Labous
 var _GLaDOS: any = null; // If the above is linked in, this is the instantiated instance of Glados.
 
 var onDocumentLoad = function() {
-	SDOS.Control.hostInit();
+	TSOS.Control.hostInit();
 };

@@ -16,8 +16,8 @@
  * Note: You could theoretically make up your own letters and symbols for your OS.
  *       That might be fun.
  * ----------------- */
-var SDOS;
-(function (SDOS) {
+var TSOS;
+(function (TSOS) {
     var CanvasTextFunctions = (function () {
         function CanvasTextFunctions() {
         }
@@ -190,5 +190,5 @@ var SDOS;
         };
         return CanvasTextFunctions;
     }());
-    SDOS.CanvasTextFunctions = CanvasTextFunctions;
-})(SDOS || (SDOS = {}));
+    TSOS.CanvasTextFunctions = CanvasTextFunctions;
+})(TSOS || (TSOS = {}));

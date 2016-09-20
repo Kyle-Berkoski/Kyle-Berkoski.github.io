@@ -17,7 +17,7 @@
  *       That might be fun.
  * ----------------- */
 
-module SDOS {
+module TSOS {
 
     export class CanvasTextFunctions {
 

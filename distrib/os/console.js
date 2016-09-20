@@ -7,8 +7,8 @@
      The OS Console - stdIn and stdOut by default.
      Note: This is not the Shell. The Shell is the "command line interface" (CLI) or interpreter for this console.
      ------------ */
-var SDOS;
-(function (SDOS) {
+var TSOS;
+(function (TSOS) {
     var Console = (function () {
         function Console(currentFont, currentFontSize, currentXPosition, currentYPosition, buffer) {
             if (currentFont === void 0) { currentFont = _DefaultFontFamily; }
@@ -173,5 +173,5 @@ var SDOS;
         };
         return Console;
     }());
-    SDOS.Console = Console;
-})(SDOS || (SDOS = {}));
+    TSOS.Console = Console;
+})(TSOS || (TSOS = {}));

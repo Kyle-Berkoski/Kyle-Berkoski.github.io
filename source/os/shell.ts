@@ -15,7 +15,7 @@
 
 // TODO: Write a base class / prototype for system services and let Shell inherit from it.
 
-module SDOS {
+module TSOS {
     export class Shell {
         // Properties
         public promptStr = ">";
@@ -471,7 +471,7 @@ module SDOS {
 			img.onload = function() {
 				_DrawingContext.clearRect(0, 0, 300, 500);
 				_DrawingContext.drawImage(img, 0, 0);
-				SDOS.Control.hostBtnHaltOS_click(document.getElementById("btnHaltOS"));
+				TSOS.Control.hostBtnHaltOS_click(document.getElementById("btnHaltOS"));
 			}
 			
 		}

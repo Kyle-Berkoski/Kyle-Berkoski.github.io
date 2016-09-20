@@ -3,8 +3,8 @@
 
      The "base class" for all Device Drivers.
      ------------------------------ */
-var SDOS;
-(function (SDOS) {
+var TSOS;
+(function (TSOS) {
     var DeviceDriver = (function () {
         function DeviceDriver() {
             this.version = '0.07';
@@ -15,5 +15,5 @@ var SDOS;
         }
         return DeviceDriver;
     }());
-    SDOS.DeviceDriver = DeviceDriver;
-})(SDOS || (SDOS = {}));
+    TSOS.DeviceDriver = DeviceDriver;
+})(TSOS || (TSOS = {}));

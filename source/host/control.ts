@@ -23,7 +23,7 @@
 //
 // Control Services
 //
-module SDOS {
+module TSOS {
 
     export class Control {
 

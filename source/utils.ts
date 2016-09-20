@@ -4,7 +4,7 @@
    Utility functions.
    -------- */
 
-module SDOS {
+module TSOS {
 
     export class Utils {
 
