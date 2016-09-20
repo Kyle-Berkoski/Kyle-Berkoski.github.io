@@ -201,6 +201,39 @@ var SDOS;
                     _KernelInputQueue.enqueue(chr);
                 }
             }
+            else if (keyCode == 192) {
+                debugger;
+                if (isShifted) {
+                    chr = "~";
+                    _TextHistory.push(chr);
+                } /*else {
+                    chr = String.fromCharCode(192);
+                    _TextHistory.push(chr)
+                }*/
+                _KernelInputQueue.enqueue(chr);
+            }
+            else if (keyCode == 189) {
+                debugger;
+                if (isShifted) {
+                    chr = "_";
+                    _TextHistory.push(chr);
+                } /*else {
+                    chr = String.fromCharCode(189);
+                    _TextHistory.push(chr)
+                }*/
+                _KernelInputQueue.enqueue(chr);
+            }
+            else if (keyCode == 187) {
+                debugger;
+                if (isShifted) {
+                    chr = "+";
+                    _TextHistory.push(chr);
+                } /*else {
+                    chr = String.fromCharCode(187);
+                    _TextHistory.push(chr)
+                }*/
+                _KernelInputQueue.enqueue(chr);
+            }
         };
         return DeviceDriverKeyboard;
     }(SDOS.DeviceDriver));
