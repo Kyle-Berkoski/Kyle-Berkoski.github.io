@@ -78,12 +78,19 @@ var SDOS;
                         this.buffer = this.buffer.slice(0, -1);
                     }
                 }
-                else if (chr == String.fromCharCode(38) || chr == String.fromCharCode(40)) {
+                else if (chr == "upArrow" || chr == "downArrow") {
                     // Clear out whatever was already typed, and set the x position back to the beginning
                     _StdOut.clearLine();
                     this.currentXPosition = 11;
                     // Store the most recent command in a string
                     var currentCommand = _CommandHistory[_CurrentLocation];
+                    // Now move in the array
+                    if (chr == "upArrow") {
+                        _CurrentLocation = _CurrentLocation - 1;
+                    }
+                    else if (chr == "downArrow") {
+                        _CurrentLocation = _CurrentLocation + 1;
+                    }
                     // Put the command back on the canvas
                     _StdOut.putText(currentCommand);
                     // Add it to the buffer so the user can enter the command again

@@ -441,7 +441,6 @@ module SDOS {
 		}
 		
 		public shellLoad(args) {
-			debugger;
 			var input = (<HTMLInputElement>document.getElementById("taProgramInput")).value;
 			var isValid = true;
 			// I fuckin hate this but I don't know regex. I'll come back and do this better when I know regex
@@ -452,21 +451,21 @@ module SDOS {
 						break;
 					}
 				}
+				if (!isValid){
+					document.getElementById("taProgramInput").innerHTML = "";
+					_StdOut.putText("Input not valid.");
+					_StdOut.advanceLine();
+					_StdOut.putText("Illegal character found at location: " + i);
+					_StdOut.advanceLine();
+				} else {
+					_StdOut.putText("Load complete");
+					_StdOut.advanceLine();
+				}
 			}
-			if (!isValid){
-				document.getElementById("taProgramInput").innerHTML = "";
-				_StdOut.putText("Input not valid.");
-				_StdOut.advanceLine();
-				_StdOut.putText("Illegal character found at location: " + i);
-				_StdOut.advanceLine();
-			} else {
-				_StdOut.putText("Load complete");
-				_StdOut.advanceLine();
-			}
+			
 		}
 		
 		public shellBSOD() {
-			debugger;
 			var img = new Image();
 			img.src = "source/BSOD.png";
 			img.onload = function() {
