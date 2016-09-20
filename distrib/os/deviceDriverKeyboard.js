@@ -70,18 +70,16 @@ var SDOS;
                 _KernelInputQueue.enqueue(chr);
             }
             else if (keyCode == 38) {
-                debugger;
                 // Only go up if we can
-                if (_CurrentLocation <= _CommandHistory.length) {
+                if (_CurrentLocation > 0) {
                     _CurrentLocation = _CurrentLocation - 1;
                     chr = String.fromCharCode(38);
                     _KernelInputQueue.enqueue(chr);
                 }
             }
             else if (keyCode == 40) {
-                debugger;
                 // Only go down if we can
-                if (_CurrentLocation > 0) {
+                if (_CurrentLocation <= _CommandHistory.length) {
                     _CurrentLocation = _CurrentLocation + 1;
                     chr = String.fromCharCode(38);
                     _KernelInputQueue.enqueue(chr);

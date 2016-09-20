@@ -73,6 +73,9 @@ var SDOS;
             // load <string>
             sc = new SDOS.ShellCommand(this.shellLoad, "load", "<string> - loads the file at given location <string>");
             this.commandList[this.commandList.length] = sc;
+            // bsod
+            sc = new SDOS.ShellCommand(this.shellBSOD, "bsod", "Blue screens the OS");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             //
@@ -364,7 +367,7 @@ var SDOS;
         };
         Shell.prototype.shellLoad = function (args) {
             debugger;
-            var input = document.getElementById("taProgramInput").innerHTML;
+            var input = document.getElementById("taProgramInput").value;
             var isValid = true;
             // I fuckin hate this but I don't know regex. I'll come back and do this better when I know regex
             if (input !== "") {
@@ -382,6 +385,20 @@ var SDOS;
                 _StdOut.putText("Illegal character found at location: " + i);
                 _StdOut.advanceLine();
             }
+            else {
+                _StdOut.putText("Load complete");
+                _StdOut.advanceLine();
+            }
+        };
+        Shell.prototype.shellBSOD = function () {
+            debugger;
+            var img = new Image();
+            img.src = "source/BSOD.png";
+            img.onload = function () {
+                _DrawingContext.clearRect(0, 0, 300, 500);
+                _DrawingContext.drawImage(img, 0, 0);
+                SDOS.Control.hostBtnHaltOS_click(document.getElementById("btnHaltOS"));
+            };
         };
         return Shell;
     }());
