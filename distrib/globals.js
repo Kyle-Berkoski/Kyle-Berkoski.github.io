@@ -39,7 +39,7 @@ var _StdIn; // Same "to null or not to null" issue as above.
 var _StdOut;
 var _TextHistory = [];
 var _CommandHistory = [];
-var _CurrentLocation = 0;
+var _CurrentLocation = -1;
 var _CommandListSorted = ["cls", "date", "help", "klingon", "load", "man", "multishine", "prompt", "rdc", "rot13", "shine", "shutdown", "status", "trace", "ver", "whereami"];
 var _regexPattern = /^([A-F0-9]*)+$/;
 // UI

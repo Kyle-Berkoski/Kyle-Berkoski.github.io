@@ -196,13 +196,12 @@ var TSOS;
             }
             else if (keyCode == 40) {
                 // Only go forward if we can
-                if (_CurrentLocation <= _CommandHistory.length && _CommandHistory.length != 0) {
+                if (_CurrentLocation <= _CommandHistory.length - 1 && _CommandHistory.length != 0) {
                     chr = "downArrow";
                     _KernelInputQueue.enqueue(chr);
                 }
             }
             else if (keyCode == 192) {
-                debugger;
                 if (isShifted) {
                     chr = "~";
                     _TextHistory.push(chr);
@@ -213,7 +212,6 @@ var TSOS;
                 _KernelInputQueue.enqueue(chr);
             }
             else if (keyCode == 189) {
-                debugger;
                 if (isShifted) {
                     chr = "_";
                     _TextHistory.push(chr);
@@ -224,7 +222,6 @@ var TSOS;
                 _KernelInputQueue.enqueue(chr);
             }
             else if (keyCode == 187) {
-                debugger;
                 if (isShifted) {
                     chr = "+";
                     _TextHistory.push(chr);

@@ -70,8 +70,8 @@ var TSOS;
             // multiShine 
             sc = new TSOS.ShellCommand(this.shellMultiShine, "multishine", "UNPLUG YOUR CONTROLLER DAWG");
             this.commandList[this.commandList.length] = sc;
-            // load <string>
-            sc = new TSOS.ShellCommand(this.shellLoad, "load", "<string> - loads the file at given location <string>");
+            // load
+            sc = new TSOS.ShellCommand(this.shellLoad, "load", "Loads programs from user input");
             this.commandList[this.commandList.length] = sc;
             // bsod
             sc = new TSOS.ShellCommand(this.shellBSOD, "bsod", "Blue screens the OS");
@@ -197,7 +197,6 @@ var TSOS;
         };
         Shell.prototype.shellVer = function (args) {
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellHelp = function (args) {
             _StdOut.putText("Commands:");
@@ -205,19 +204,16 @@ var TSOS;
                 _StdOut.advanceLine();
                 _StdOut.putText("  " + _OsShell.commandList[i].command + " " + _OsShell.commandList[i].description);
             }
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellShutdown = function (args) {
             _StdOut.putText("Shutting down...");
             // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
             // TODO: Stop the final prompt from being displayed.  If possible.  Not a high priority.  (Damn OCD!)
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellCls = function (args) {
             _StdOut.clearScreen();
             _StdOut.resetXY();
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellMan = function (args) {
             if (args.length > 0) {
@@ -257,7 +253,6 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
             }
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellTrace = function (args) {
             if (args.length > 0) {
@@ -283,7 +278,6 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: trace <on | off>");
             }
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellRot13 = function (args) {
             if (args.length > 0) {
@@ -293,7 +287,6 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: rot13 <string>  Please supply a string.");
             }
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellPrompt = function (args) {
             if (args.length > 0) {
@@ -302,7 +295,6 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellRdc = function () {
             _StdOut.putText("Removing Daniel Craig from the James Bond Series...");
@@ -312,26 +304,22 @@ var TSOS;
             _StdOut.putText("...");
             _StdOut.advanceLine();
             _StdOut.putText("Complete.");
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellDate = function () {
             var dateTime = new Date();
             dateTime = dateTime.toString();
             _StdOut.putText(dateTime);
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellLocation = function () {
             // TODO: do I really want that one in there?
             var locations = ["Europe.", "Japan.", "the Moon.", "Russia.", "herself.", "the local hiking trails."];
             var randNum = Math.floor(Math.random() * 5) + 0;
             _StdOut.putText("Ami is having a wonderful time exploring " + locations[randNum]);
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellKlingon = function () {
             _StdOut.putText("tlhIngan Hol Dajatlh'a'?");
             _StdOut.advanceLine();
             _StdOut.putText("rut vIchel 'e' vIHar.");
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellStatus = function (args) {
             var statusString = "";
@@ -353,45 +341,29 @@ var TSOS;
                     _StdOut.putText("Usage status <string> Please supply a string.");
                 }
             }
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellShine = function () {
             var shineAudio = new Audio('source/shine.mp3');
             shineAudio.play();
-            _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellMultiShine = function () {
             var multiShineAudio = new Audio('source/multishine.mp3');
             multiShineAudio.play();
-            _CurrentLocation = _CurrentLocation + 1;
         };
-        Shell.prototype.shellLoad = function (args) {
-            debugger;
+        Shell.prototype.shellLoad = function () {
             var input = document.getElementById("taProgramInput").value;
             // Cleanse the input of spaces and other white space
             input = input.replace(/\s/g, '');
-            var validString = _regexPattern.test(input);
-            console.log(validString);
-            var isValid = true;
-            // I fuckin hate this but I don't know regex. I'll come back and do this better when I know regex
-            if (input !== "") {
-                for (var i = 0; i < input.length; i++) {
-                    if (input[i] !== "A" && input[i] !== "B" && input[i] !== "C" && input[i] !== "D" && input[i] !== "E" && input[i] !== "F" && input[i] !== "0" && input[i] !== "1" && input[i] !== "2" && input[i] !== "3" && input[i] !== "4" && input[i] !== "5" && input[i] !== "6" && input[i] !== "7" && input[i] !== "8" && input[i] !== "9" && input[i] !== " ") {
-                        isValid = false;
-                        break;
-                    }
-                }
-                if (!isValid) {
-                    document.getElementById("taProgramInput").innerHTML = "";
-                    _StdOut.putText("Input not valid.");
-                    _StdOut.advanceLine();
-                    _StdOut.putText("Illegal character found at location: " + i);
-                    _StdOut.advanceLine();
-                }
-                else {
-                    _StdOut.putText("Load complete");
-                    _StdOut.advanceLine();
-                }
+            var isValid = _regexPattern.test(input);
+            if (!isValid) {
+                _StdOut.putText("Input not valid.");
+                _StdOut.advanceLine();
+                _StdOut.putText("Illegal character found");
+                _StdOut.advanceLine();
+            }
+            else {
+                _StdOut.putText("Load complete");
+                _StdOut.advanceLine();
             }
         };
         Shell.prototype.shellBSOD = function () {

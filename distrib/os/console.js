@@ -44,11 +44,12 @@ var TSOS;
                     _OsShell.handleInput(this.buffer);
                     // Add the command to the command history
                     _CommandHistory.push(this.buffer);
+                    // Traverse the command history array
+                    _CurrentLocation = _CurrentLocation + 1;
                     // ... and reset our buffer.
                     this.buffer = "";
                 }
                 else if (chr == String.fromCharCode(8)) {
-                    debugger;
                     if (this.buffer.length >= 1) {
                         var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
                         var oldXPosition = 0;
@@ -83,9 +84,7 @@ var TSOS;
                 else if (chr == "upArrow" || chr == "downArrow") {
                     // Clear out whatever was already typed, and set the x position back to the beginning
                     _StdOut.clearLine();
-                    this.currentXPosition = 11;
-                    // Store the most recent command in a string
-                    var currentCommand = _CommandHistory[_CurrentLocation];
+                    this.currentXPosition = 12.48;
                     // Now move in the array
                     if (chr == "upArrow") {
                         _CurrentLocation = _CurrentLocation - 1;
@@ -93,6 +92,8 @@ var TSOS;
                     else if (chr == "downArrow") {
                         _CurrentLocation = _CurrentLocation + 1;
                     }
+                    // Store the command in a string
+                    var currentCommand = _CommandHistory[_CurrentLocation];
                     // Put the command back on the canvas
                     _StdOut.putText(currentCommand);
                     // Add it to the buffer so the user can enter the command again
