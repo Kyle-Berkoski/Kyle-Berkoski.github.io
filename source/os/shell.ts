@@ -122,10 +122,10 @@ module TSOS {
 								  "UNPLUG YOUR CONTROLLER DAWG");
 			this.commandList[this.commandList.length] = sc;
 			
-			// load <string>
+			// load
 			sc = new ShellCommand(this.shellLoad,
 								  "load",
-								  "<string> - loads the file at given location <string>");
+								  "Loads programs from user input");
 			this.commandList[this.commandList.length] = sc;
 			
 			// bsod
@@ -440,27 +440,22 @@ module TSOS {
 			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
-		public shellLoad(args) {
+		public shellLoad() {
+            debugger;
 			var input = (<HTMLInputElement>document.getElementById("taProgramInput")).value;
-			var isValid = true;
-			// I fuckin hate this but I don't know regex. I'll come back and do this better when I know regex
-			if(input !== ""){
-				for (var i = 0; i < input.length; i++){
-					if (input[i] !== "A" && input[i] !== "B" && input[i] !== "C" && input[i] !== "D" && input[i] !== "E" && input[i] !== "F" && input[i] !== "0" && input[i] !== "1" && input[i] !== "2" && input[i] !== "3" && input[i] !== "4" && input[i] !== "5" && input[i] !== "6" && input[i] !== "7" && input[i] !== "8" && input[i] !== "9" && input[i] !== " "){
-						isValid = false;
-						break;
-					}
-				}
-				if (!isValid){
-					document.getElementById("taProgramInput").innerHTML = "";
-					_StdOut.putText("Input not valid.");
-					_StdOut.advanceLine();
-					_StdOut.putText("Illegal character found at location: " + i);
-					_StdOut.advanceLine();
-				} else {
-					_StdOut.putText("Load complete");
-					_StdOut.advanceLine();
-				}
+            // Cleanse the input of spaces and other white space
+            input = input.replace(/\s/g, '');
+            var isValid = _regexPattern.test(input);
+            
+            if (!isValid){
+                _StdOut.putText("Input not valid.");
+                _StdOut.advanceLine();
+                _StdOut.putText("Illegal character found");
+                _StdOut.advanceLine();
+            } else {
+                _StdOut.putText("Load complete");
+                _StdOut.advanceLine();
+            }
 			}
 			
 		}

@@ -366,7 +366,12 @@ var TSOS;
             _CurrentLocation = _CurrentLocation + 1;
         };
         Shell.prototype.shellLoad = function (args) {
+            debugger;
             var input = document.getElementById("taProgramInput").value;
+            // Cleanse the input of spaces and other white space
+            input = input.replace(/\s/g, '');
+            var validString = _regexPattern.test(input);
+            console.log(validString);
             var isValid = true;
             // I fuckin hate this but I don't know regex. I'll come back and do this better when I know regex
             if (input !== "") {

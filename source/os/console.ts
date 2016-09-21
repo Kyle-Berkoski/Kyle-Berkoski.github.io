@@ -139,7 +139,7 @@ module TSOS {
             //
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             //         Consider fixing that.
-			debugger;
+			
 			
             if (text !== ""){
 				if (this.currentXPosition >= 490){
@@ -154,7 +154,7 @@ module TSOS {
          }
 
         public advanceLine(lineIsWrapped): void {
-			debugger;
+			
             this.currentXPosition = 0;
             /*
              * Font size measures from the baseline to the highest point in the font.

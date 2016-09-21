@@ -41,7 +41,7 @@ var _TextHistory = [];
 var _CommandHistory = [];
 var _CurrentLocation = 0;
 var _CommandListSorted = ["cls", "date", "help", "klingon", "load", "man", "multishine", "prompt", "rdc", "rot13", "shine", "shutdown", "status", "trace", "ver", "whereami"];
-//var regexPattern = "^[A-Z0-9 ]*$"
+var _regexPattern = /^([A-F0-9]*)+$/;
 // UI
 var _Console;
 var _OsShell;

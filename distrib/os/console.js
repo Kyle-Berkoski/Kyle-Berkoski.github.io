@@ -52,6 +52,7 @@ var TSOS;
                     if (this.buffer.length >= 1) {
                         var lineHeight = _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
                         var oldXPosition = 0;
+                        // Manage where we are in the history array
                         if (_TextHistory.length == 1) {
                             //There's only one element in the array so grab that
                             var historyLocation = 0;
@@ -138,7 +139,6 @@ var TSOS;
             //
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             //         Consider fixing that.
-            debugger;
             if (text !== "") {
                 if (this.currentXPosition >= 490) {
                     _StdOut.advanceLine(true);
@@ -151,7 +151,6 @@ var TSOS;
             }
         };
         Console.prototype.advanceLine = function (lineIsWrapped) {
-            debugger;
             this.currentXPosition = 0;
             /*
              * Font size measures from the baseline to the highest point in the font.
