@@ -263,7 +263,6 @@ module TSOS {
 
         public shellVer(args) {
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
-			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellHelp(args) {			
@@ -272,7 +271,6 @@ module TSOS {
                 _StdOut.advanceLine();
                 _StdOut.putText("  " + _OsShell.commandList[i].command + " " + _OsShell.commandList[i].description);
             }
-			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellShutdown(args) {
@@ -280,13 +278,11 @@ module TSOS {
              // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
             // TODO: Stop the final prompt from being displayed.  If possible.  Not a high priority.  (Damn OCD!)
-			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellCls(args) {
             _StdOut.clearScreen();
             _StdOut.resetXY();
-			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellMan(args) {
@@ -326,7 +322,6 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
             }
-			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellTrace(args) {
@@ -351,7 +346,6 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: trace <on | off>");
             }
-			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellRot13(args) {
@@ -361,7 +355,6 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: rot13 <string>  Please supply a string.");
             }
-			_CurrentLocation = _CurrentLocation + 1;
         }
 
         public shellPrompt(args) {
@@ -370,7 +363,6 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
-			_CurrentLocation = _CurrentLocation + 1;
         }
 		
 		public shellRdc() {
@@ -381,7 +373,6 @@ module TSOS {
 			_StdOut.putText("...");
 			_StdOut.advanceLine();
 			_StdOut.putText("Complete.");
-			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellDate() {
@@ -389,7 +380,6 @@ module TSOS {
 				dateTime = dateTime.toString();
 				
 			_StdOut.putText(dateTime);
-			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellLocation() {	
@@ -397,14 +387,12 @@ module TSOS {
 			var locations = ["Europe.", "Japan.", "the Moon.", "Russia.", "herself.", "the local hiking trails."];
 			var randNum = Math.floor(Math.random() * 5) + 0;
 			_StdOut.putText("Ami is having a wonderful time exploring " + locations[randNum]);
-			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellKlingon() {
 			_StdOut.putText("tlhIngan Hol Dajatlh'a'?");
 			_StdOut.advanceLine();
 			_StdOut.putText("rut vIchel 'e' vIHar.");
-			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellStatus(args){
@@ -425,23 +413,19 @@ module TSOS {
 				}
 				
 			}
-			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellShine() {
 			var shineAudio = new Audio('source/shine.mp3');
 			shineAudio.play();
-			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellMultiShine() {
 			var multiShineAudio = new Audio('source/multishine.mp3');
 			multiShineAudio.play();
-			_CurrentLocation = _CurrentLocation + 1;
 		}
 		
 		public shellLoad() {
-            debugger;
 			var input = (<HTMLInputElement>document.getElementById("taProgramInput")).value;
             // Cleanse the input of spaces and other white space
             input = input.replace(/\s/g, '');
@@ -456,8 +440,6 @@ module TSOS {
                 _StdOut.putText("Load complete");
                 _StdOut.advanceLine();
             }
-			}
-			
 		}
 		
 		public shellBSOD() {
@@ -467,8 +449,7 @@ module TSOS {
 				_DrawingContext.clearRect(0, 0, 300, 500);
 				_DrawingContext.drawImage(img, 0, 0);
 				TSOS.Control.hostBtnHaltOS_click(document.getElementById("btnHaltOS"));
-			}
-			
+			}			
 		}
 		
 

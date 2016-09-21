@@ -185,7 +185,7 @@ module TSOS {
 				
 			} else if (keyCode == 40) { // Down Arrow
 				// Only go forward if we can
-				if (_CurrentLocation <= _CommandHistory.length && _CommandHistory.length != 0) {					
+				if (_CurrentLocation <= _CommandHistory.length-1 && _CommandHistory.length != 0) {					
 					chr = "downArrow";
 					_KernelInputQueue.enqueue(chr);
 				}
@@ -193,7 +193,6 @@ module TSOS {
 			// These unshifted key codes are giving weird results. 
 			// TODO: Go back and decipher what to do with these weird character returns
 			} else if (keyCode == 192) {
-				debugger;
 				if(isShifted){
 					chr = "~";
 					_TextHistory.push(chr)
@@ -204,7 +203,6 @@ module TSOS {
 				_KernelInputQueue.enqueue(chr);
 				
 			} else if (keyCode == 189) {
-				debugger;
 				if(isShifted){
 					chr = "_";
 					_TextHistory.push(chr)
@@ -215,7 +213,6 @@ module TSOS {
 				_KernelInputQueue.enqueue(chr);
 				
 			} else if (keyCode == 187) {
-				debugger;
 				if(isShifted){
 					chr = "+";
 					_TextHistory.push(chr)
